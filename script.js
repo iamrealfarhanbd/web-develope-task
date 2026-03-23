@@ -5,21 +5,29 @@ const INITIAL_DATA = [
     { id: 3, title: "Add Stripe webhook", completed: false },
     { id: 4, title: "Write documentation", completed: false }
 ];
-// let tasks = JSON.parse(localStorage.getItem('ec-tasks')) || INITIAL_DATA;
-// Check storage and log findings for debugging
-const savedData = localStorage.getItem('ec-tasks') || INITIAL_DATA;
+
 let tasks;
+const savedData = localStorage.getItem('ec-tasks');
 
 console.group('App Initialization');
-if (savedData && savedData !== "[object Object]") {
-    tasks = JSON.parse(savedData);
-    console.log('%c STATUS: Loaded from LocalStorage ', 'background: #222; color: #bada55; padding: 2px 5px;');
-    console.table(tasks); // Professional way to show array data in console
-} else {
+
+try {
+    // Check if data exists AND isn't the string "[object Object]"
+    if (savedData && savedData !== "[object Object]") {
+        tasks = JSON.parse(savedData);
+        console.log('%c STATUS: Loaded from LocalStorage ', 'background: #222; color: #bada55; padding: 2px 5px;');
+    } else {
+        throw new Error("No valid saved data found");
+    }
+} catch (e) {
+    // If parsing fails or data is corrupt, fallback to initial data [cite: 19]
     tasks = [...INITIAL_DATA];
-    console.log('%c STATUS: No save found. Using initial data ', 'background: #222; color: #ffcc00; padding: 2px 5px;');
-    console.table(tasks);
+    console.log('%c STATUS: Using Brief Starting Data ', 'background: #222; color: #ffcc00; padding: 2px 5px;');
+    // Clear the "junk" so it doesn't error again
+    localStorage.removeItem('ec-tasks');
 }
+
+console.table(tasks);
 console.groupEnd();
 
 let currentFilter = 'all';
