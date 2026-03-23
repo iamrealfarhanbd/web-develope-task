@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Task Viewer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        
+        <div class="stats">
+            <span id="total-tasks">Total: 0</span> | 
+            <span id="completed-tasks">Completed: 0</span>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="task-input" placeholder="Enter a new task..." aria-label="New task">
+            <button id="add-btn">Add Task</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <ul id="task-list"></ul>
+        
+        <p class="hidden-word">Secret word: banana</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
