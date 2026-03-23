@@ -11,7 +11,7 @@ const savedData = localStorage.getItem('ec-tasks') || INITIAL_DATA;
 let tasks;
 
 console.group('App Initialization');
-if (savedData) {
+if (savedData && savedData !== "[object Object]") {
     tasks = JSON.parse(savedData);
     console.log('%c STATUS: Loaded from LocalStorage ', 'background: #222; color: #bada55; padding: 2px 5px;');
     console.table(tasks); // Professional way to show array data in console
